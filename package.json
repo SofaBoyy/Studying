@@ -1,0 +1,30 @@
+{
+  "name": "studying",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": { 
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "dev": "nodemon src/index.ts", 
+    "start": "ts-node src/index.ts", 
+    "build": "tsc" 
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SofaBoyy/Studying.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SofaBoyy/Studying/issues"
+  },
+  "homepage": "https://github.com/SofaBoyy/Studying#readme",
+  "devDependencies": {
+    "@types/node": "^16.10.3",
+    "nodemon": "^2.0.13",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  }
+}
