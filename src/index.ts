@@ -1,34 +1,28 @@
+import { connect, disconnect } from 'mongoose';
+import * as AutorRepositorio from './persistencia/autorRepositorio';
 
-import * as mdb from 'mongodb';
-import { type } from 'os';
-import {Pessoa} from './pessoa';
+const uri = 'mongodb+srv://dbUser:kil,ji8oku@cluster0.wszic.mongodb.net/meubd?retryWrites=true&w=majority';
 
-const uri = 'mongodb+srv://nick:nick@cluster0.ooubl.mongodb.net/Teste?retryWrites=true&w=majority';
-const client = new mdb.MongoClient(uri);
+async function main() {
+    try {
+        const cliente = await connect(uri);
+        console.log('Conectado ao MongoDb Atlas');
 
-async function main () {
-    try{
-        await client.connect();
-        console.log('Conectado ao MongoDB Atlas');
+        console.log('Adicionando autores...');
+        let a1 = await AutorRepositorio.criar({primeiro_nome: 'John', ultimo_nome: 'Doe'});
+        console.log(`Autor inserido: ${a1}`);
+        let a2 = await AutorRepositorio.criar({primeiro_nome: 'Mary', ultimo_nome: 'Doe'});
+        console.log(`Autor inserido: ${a2}`);
 
-        const database = client.db('Teste');
-        const collection = database.collection<Pessoa>('pessoas');
+        console.log('Buscando autores...');
+        let autores = await AutorRepositorio.buscar();
+        autores.forEach(autor => console.log(autor));
 
-        const pessoa: Pessoa = {
-            nome: 'Volney',
-            idade: 19,
-        };
-
-       // const resultado = await collection.insertOne(pessoa);
-        const resultado2 = await collection.find({idade: 19});
-
-       // console.log(`Inserido: ${resultado.insertedId}`);
-        console.log(resultado2);
-
-    } catch(e) {
-        console.log(e);
+    } catch (error) {
+        console.log(`Erro: ${error}`);
     } finally {
-        await client.close();
+        await disconnect();
+        console.log('Desconectado do MongoDb Atlas');
     }
 }
 
